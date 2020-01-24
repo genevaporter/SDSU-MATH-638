@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+
+\title{Project Proposal: \\ Turing Instability and Pattern Formation}
+\author{Jose Ramirez-Huitron and Geneva Porter}
+\date{27 February 2019}
+
+\begin{document}
+\maketitle
+
+\vspace{3cm}
+
+\section*{Intro}
+
+Reaction-diffusion systems can be simple, but they can also yield solutions describing complicated pattern formations. For this project, we will be using Turing analysis techniques to investigate pattern formation via a reaction-diffusion system. Specifically, we will be examining the Gierer-Meinhardt model\cite{Gierer1972}, a PDE system describing activator-inhibitor relationships. 
+
+The structure of our project paper will include both analytical and numerical solution conditions. First, we will examine the form of basic reaction-diffusion systems and the additional parameters of the Gierer-Meinhardt model. Next, we will do a basic stability analysis by finding the eigenvalues of the model with and without the diffusion terms, then evaluating under which conditions patterning occurs. Applying non-dimensionalization analysis will then allow us to perform a simplified bifurcation study. After examining the model analytically, we will use a finite difference scheme to approximate a numerical solution at varying parameter values. Pattern formation visualizations will follow with these results.
+
+\pagebreak
+
+\section*{Model Analysis}
+
+The classic reaction-diffusion system has the form:
+
+$$
+\frac{\partial u}{\partial t}=D_u\frac{\partial^2u}{\partial x^2}+f(u,v)
+$$
+
+$$
+\frac{\partial v}{\partial t}=D_v\frac{\partial^2v}{\partial x^2}+g(u,v)
+$$
+
+\vspace{3mm}
+
+With $D_u$ and $D_v$ being the diffusion constants and $f$ and $g$ being the reaction functions. Here $u$ and $v$ are functions of position and time.  Patterns emerge when we have a {\it Turing instability}, also called a {\it diffusion-driven instability}\cite{ShapeOfMath}. A Turing instability occurs when a zero-diffusion system in a stable steady state switches to an unstable steady state when a diffusion term is included. Our goal is to find the conditions for which a Turing instability occurs. 
+
+The Gierer-Meinhardt model elaborates on the classic system. This model is given by:
+
+\begin{align*}
+    \frac{\partial u}{\partial t} & = D_u\frac{\partial^2u}{\partial t^2} + \rho\frac{u^2}{v} - a_1u + a_2 \\
+    \frac{\partial v}{\partial t} & = D_v\frac{\partial^2v}{\partial t^2} + \rho u^2 - b_1v + b_2 \\
+\end{align*}
+
+As we can see, there is a quadratic added to the diffusion term for each equation. Here the function $u$ designated the behavior of the activator substance, while $v$ is the inhibitor substance. The quadratic equations describe the inter-dependent relationship between the production and decay of two substances. The production rate is given by $\rho$, with decay rates $a_1$ and $b_1$ and concentration constants $a_2$ and $b_2$. More about these parameters and their respective roles will be explained in the final project.
+
+After finding patterning conditions of this model analytically, we will visualize solutions to this system numerically.
+
+\pagebreak
+
+\section*{Numerical Analysis}
+
+In order to reduce issues with consistency and stability, an implicit, second-order finite difference scheme shall be use to solve the Gierer-Meinhardt system numerically. These scheme properties, along with a well-posedness assumption, should guarantee convergence by the Lax-Richtmyer Equivalence Theorem. \\
+
+Lax-Richtmyer Equivalence Theorem:
+\textit{A consistent finite difference scheme for a partial differential equation for which the initial value problem is well-posed is convergent if and only if it is stable.} \cite{Strikwerda2004} \\
+
+In general, the scheme needs to work on multidimensional systems of parabolic partial differential equations. Therefore, the Crank-Nicolson scheme, a readily known finite difference scheme, meets the criteria:
+
+
+\begin{align*}
+  \frac{v^{n+1}_m-v^{n-1}_m}{k}=\frac{1}{2} & b\frac{v^{n+1}_{m+1}-2v^{n+1}_{m}+v^{n+1}_{m-1}}{h^2} \\ +&\frac{1}{2}  b\frac{v^{n}_{m+1}-2v^{n}_{m}+v^{n}_{m-1}}{h^2} \\  +& \frac{f^{n+1}_m+f^{n-1_m}}{2}  
+\end{align*}
+
+
+Here $V^n_m$ refers to the $n^{th}$ time step of the $m^{th}$ spatial point in the system.The variables $h$, $k$, and $b$ are the space step, time step, and diffusivity, respectively.\cite{Strikwerda2004}
+
+The patterns expected to form should be dependent on the size of the domain; as such this is the parameter that should be varied to determine the influence of the size of the domain on the pattern formation.
+
+ \section*{Discussion}\\
+This section of the project will cover how the numerical results reflect what was uncovered in the Turing Analysis of the Gierer-Meinhardt Model.
+
+\pagebreak
+
+\nocite{*}
+\bibliographystyle{acm}
+\bibliography{638bib}
+
+\end{document}
